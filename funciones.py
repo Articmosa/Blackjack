@@ -1,11 +1,9 @@
 from colorama import Fore, Style
 import random
+import time
 
 
-J = 10
-Q = 10
-K = 10
-valores = [Q, K, 1, 2, J, 3, 4, 5, 6, 7, 8, 9, 10]
+valores = ["J" ,"Q" ,"K" , 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 valores_casa = []
 simbolos_casa = []
 valores_jugador = []
@@ -15,9 +13,17 @@ simbolos = ["Picas", "Corazones", "Diamantes", "Treboles"]
 
 def Sumar_listas(lista):
     contador = 0
-    for i in lista:
-        contador += i
-    return contador
+    posicion = 0
+
+    while posicion in range(len(lista)):
+        try:
+            contador += lista[posicion] 
+            posicion +=1
+        except :
+            contador += 10
+            posicion +=1
+
+    return contador 
 
 
 def Bienvenida():
@@ -82,9 +88,11 @@ def Inicio_Juego():
                     )
                 )
                 suma_jugador = Sumar_listas(valores_jugador)
+                time.sleep(0.5)
                 print("\nActualmente la suma de tus cartas es {}".format(suma_jugador))
 
             elif seleccion == "pasar":
+                time.sleep(0.5)
                 print(
                     "\nLas cartas de la casa son {} de {} y {} de {}".format(
                         valores_casa[0],
@@ -96,6 +104,7 @@ def Inicio_Juego():
 
                 while suma_casa <= 16:
                     agregar_casa()
+                    time.sleep(0.5)
                     print(
                         "\nSe ha agregado {} de {} a la mano de la casa".format(
                             valores_casa[-1], simbolos_casa[-1]
@@ -111,7 +120,7 @@ def Ganador():
 
     suma_casa = Sumar_listas(valores_casa)
     suma_jugador = Sumar_listas(valores_jugador)
-
+    time.sleep(0.5)
     if suma_jugador > 21 and suma_casa <= 21:
         print("\nLa casa ha ganado")
     elif suma_jugador <= 21 and suma_casa > 21:
